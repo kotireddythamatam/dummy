@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<div>
+	{% if messages %}
+		{% for message in messages %}
+			{{ message }}
+		{% endfor %}
+	{% endif %}
+</div>
+<div class="login_form">
+
+  <h2>Login Page</h2><br>
+<form action="" method="post" class="fff">
+  {% csrf_token %}
+  <input type="email" name="e" size="30%" placeholder="Enter Your Email Id"><br><br>
+  <input type="password" name="p" placeholder="Enter Your Password" size="30%"><br><br>
+  <input type="submit" class="form" value="Login"><br><br>
+  <a href="/localhost/to_mail">Forgot password?</a>
+</form>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.form').on('click',function(e){
+			e.preventDefault()
+			$.ajax({
+				url:"/front/login2",
+				type:"GET",
+				data: $('.fff').serialize(),
+				success: function(data){
+					$(".fff").remove()
+					console.log(data)
+				},
+				error: function(){
+					console.log(data)
+				}
+			})
+		})
+	})
+
+</script>
+{% endblock %}
